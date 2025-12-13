@@ -23,11 +23,11 @@ python evaluation_image.py
 ```
 2. Dataset: Kodak
 ```bash
-python evaluation_dataset.py --dataset kodak_jpg
+python evaluation_dataset.py kodak_jpg
 ```
 3. Dataset: CLIC
 ```bash
-python evaluation_dataset.py --dataset CLIC_jpg
+python evaluation_dataset.py CLIC_jpg
 ``` 
 
 ## Evaluation Result of Image
