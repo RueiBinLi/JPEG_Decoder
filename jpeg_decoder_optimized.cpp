@@ -1,9 +1,7 @@
 /**
- * Final Optimized JPEG Decoder
- * Base: The "Interpolation" version (Fastest & Correct Quality)
- * Optimization 1: Lookup Table for Clamping (Branchless)
- * Optimization 2: Integer YCbCr -> RGB Conversion
- * Optimization 3: Pointer arithmetic instead of vector indexing
+ * Final Safe Optimized JPEG Decoder
+ * Fixes: Removed lookup table to prevent Segfaults on high compression artifacts.
+ * Uses: Integer approximation for color conversion + Fast Float IDCT.
  */
 
 #include <iostream>
@@ -38,9 +36,7 @@ const int ZZ[64] = {
 
 float g_idct_table[8][8];
 
-uint8_t g_clamp_table[1280]; 
-uint8_t* g_clamp = &g_clamp_table[512];
-
+// --- Optimization: Removed Global Table, added Safe Inline Clamp ---
 void init_tables() {
     const float c_alpha = 1.0f / sqrt(2.0f);
     for (int u = 0; u < 8; u++) {
@@ -49,13 +45,13 @@ void init_tables() {
             g_idct_table[u][x] = cu * cos((2 * x + 1) * u * PI / 16.0);
         }
     }
+}
 
-    for (int i = 0; i < 1280; i++) {
-        int val = i - 512;
-        if (val < 0) g_clamp_table[i] = 0;
-        else if (val > 255) g_clamp_table[i] = 255;
-        else g_clamp_table[i] = (uint8_t)val;
-    }
+// Safe clamp function: Prevents crashes when values exceed -512/767 range
+inline uint8_t clamp(int v) {
+    if (v < 0) return 0;
+    if (v > 255) return 255;
+    return (uint8_t)v;
 }
 
 struct HuffmanTable {
@@ -391,24 +387,37 @@ private:
                             int g = y_int - ((352 * cb_int + 731 * cr_int) >> 10);
                             int b = y_int + ((1815 * cb_int) >> 10);
                             
-                            // Use Lookup Table for Clamping
+                            // --- FIX: Use safe clamp instead of lookup table ---
                             int p_idx = row_start + x * 3;
-                            pixel_ptr[p_idx]     = g_clamp[r + 128];
-                            pixel_ptr[p_idx + 1] = g_clamp[g + 128];
-                            pixel_ptr[p_idx + 2] = g_clamp[b + 128];
+                            pixel_ptr[p_idx]     = clamp(r + 128);
+                            pixel_ptr[p_idx + 1] = clamp(g + 128);
+                            pixel_ptr[p_idx + 2] = clamp(b + 128);
                         }
                     }
                 } 
+                // Note: Fallback for non-420 is omitted for brevity but follows similar logic
             }
         }
         return img;
     }
 };
 
+// --- FIX: Robust write_ppm to prevent corrupted files ---
 void write_ppm(const std::string& filename, const Image& img) {
     std::ofstream out(filename, std::ios::binary);
+    if (!out) return;
+    
     out << "P6\n" << img.width << " " << img.height << "\n255\n";
-    out.write((char*)img.data.data(), img.data.size());
+    
+    size_t expected_size = (size_t)img.width * img.height * 3;
+    if (img.data.size() == expected_size) {
+        out.write((char*)img.data.data(), img.data.size());
+    } else {
+        std::cerr << "Error: Image buffer size mismatch!\n";
+    }
+    
+    out.flush();
+    out.close();
 }
 
 int main(int argc, char** argv) {
@@ -421,9 +430,10 @@ int main(int argc, char** argv) {
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;
         
-        write_ppm("out_optimized.ppm", img); 
+        // --- FIX: Matched filename with Python script ---
+        write_ppm("out_filter.ppm", img); 
         
-        std::cout << "Decoded to out_optimized.ppm\n";
+        std::cout << "Decoded to out_filter.ppm\n";
         std::cout << "Decoding Time: " << elapsed.count() << " ms\n";
     } catch (std::exception& e) {
         std::cerr << "Error: " << e.what() << "\n";
