@@ -16,19 +16,34 @@ g++ -O3 ./jpeg_decoder_bilinear.cpp -o ./jpeg_decoder_bilinear
 g++ -O3 ./jpeg_decoder_optimized.cpp -o ./jpeg_decoder_optimized
 ```
 
-## Testing Image
-1. Image: Lena
+## Evaluation
+1. Image
+```bash
+python evaluation_image.py
+```
+2. Dataset: Kodak
+```bash
+python evaluation_dataset.py --dataset kodak_jpg
+```
+3. Dataset: CLIC
+```bash
+python evaluation_dataset.py --dataset CLIC_jpg
+``` 
+
+## Evaluation Result of Image
+1. Lena
 
 ![lena](./lena.jpg)
 
 2. Result
 
-![lena](./lena.jpg)
+![lena_result](./performance_comparison_opencv_lena.png)
 
-## Testing Dataset
+## Evaluation Result of Dataset
 1. [Kodak](https://www.kaggle.com/datasets/sherylmehta/kodak-dataset)
    
 ![kodak_result](./dataset_benchmark_speed_quality_kodak.png)
    
 2. [CLIC](https://www.kaggle.com/datasets/mustafaalkhafaji95/clic-dataset) High Resolution Dataset
    
+![CLIC_result](./dataset_benchmark_speed_quality_CLIC.png)
