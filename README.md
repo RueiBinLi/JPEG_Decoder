@@ -60,11 +60,11 @@ g++ -O3 ./jpeg_decoder_optimized.cpp -o ./jpeg_decoder_optimized
 ```bash
 python evaluation_image.py
 ```
-1. Dataset: Kodak
+2. Dataset: Kodak
 ```bash
 python evaluation_dataset.py kodak_jpg
 ```
-1. Dataset: CLIC 
+3. Dataset: CLIC 
 ```bash
 python evaluation_dataset.py CLIC_jpg
 ``` 
