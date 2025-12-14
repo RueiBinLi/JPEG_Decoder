@@ -29,7 +29,7 @@ NUM_RUNS = 5
 decoders = {
     "OpenCV": "INTERNAL",
     "Original": "./jpeg_decoder",
-    "Add Interpolation": "./jpeg_decoder_bilinear",
+    "Add Interpolation": "./jpeg_decoder_interpolation",
     "Optimized": "./jpeg_decoder_optimized",
 }
 
