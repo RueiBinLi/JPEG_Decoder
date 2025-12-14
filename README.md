@@ -13,6 +13,13 @@ torch
 torchmetrics
 ```
 
+## Running Device
+```bash
+GPU: GTX 1650 super VRAM 4GB
+CPU: AMD Ryzen R5 3600
+Memory: 16GB
+```
+
 ## Installation
 1. Install conda environment
 ```bash
@@ -53,11 +60,11 @@ g++ -O3 ./jpeg_decoder_optimized.cpp -o ./jpeg_decoder_optimized
 ```bash
 python evaluation_image.py
 ```
-2. Dataset: Kodak
+1. Dataset: Kodak
 ```bash
 python evaluation_dataset.py kodak_jpg
 ```
-3. Dataset: CLIC
+1. Dataset: CLIC 
 ```bash
 python evaluation_dataset.py CLIC_jpg
 ``` 
