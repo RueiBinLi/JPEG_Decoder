@@ -182,5 +182,5 @@ for idx, (title, key, unit) in enumerate(metrics_config):
     plt.legend()
 
 plt.tight_layout()
-plt.savefig('performance_comparison_opencv.png')
-print("Image is stored by performance_comparison_opencv.png")
+plt.savefig('performance_comparison_opencv_lena.png')
+print("Image is stored by performance_comparison_opencv_lena.png")
