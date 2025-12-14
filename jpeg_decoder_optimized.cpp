@@ -431,9 +431,9 @@ int main(int argc, char** argv) {
         std::chrono::duration<double, std::milli> elapsed = end - start;
         
         // --- FIX: Matched filename with Python script ---
-        write_ppm("out_filter.ppm", img); 
+        write_ppm("out_optimized.ppm", img); 
         
-        std::cout << "Decoded to out_filter.ppm\n";
+        std::cout << "Decoded to out_optimized.ppm\n";
         std::cout << "Decoding Time: " << elapsed.count() << " ms\n";
     } catch (std::exception& e) {
         std::cerr << "Error: " << e.what() << "\n";
