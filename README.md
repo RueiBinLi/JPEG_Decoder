@@ -17,6 +17,8 @@ torchmetrics
 1. Install conda environment
 ```bash
 conda craete -n jpeg python=3.13.5 -y
+```
+```bash
 conda activate jpeg
 ```
 2. Install the required toolkit.
