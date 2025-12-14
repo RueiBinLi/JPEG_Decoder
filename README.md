@@ -16,9 +16,7 @@ torchmetrics
 ## Installation
 1. Install conda environment
 ```bash
-conda craete -n jpeg python=3.13.5 -y
-```
-```bash
+conda create -n jpeg python=3.13.5 -y
 conda activate jpeg
 ```
 2. Install the required toolkit.
