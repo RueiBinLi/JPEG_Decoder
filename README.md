@@ -6,7 +6,7 @@ python==3.13.5
 ```
 ```bash
 opencv-python
-numpy
+numpy==1.26.4
 scikit-image
 matplotlib
 torch
