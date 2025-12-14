@@ -114,11 +114,11 @@ for name, exe_path in decoders.items():
             
             total_time += duration_ms
             
-            expected_out = "out_interpolation.ppm"
-            if "interpolation" not in exe_path and "filter" not in exe_path:
-                 expected_out = "out.ppm"
-            if "optimized" in exe_path:
-                 expected_out = "out_optimized.ppm" 
+            expected_out = "out.ppm" 
+            if "bilinear" in exe_path: 
+                expected_out = "out_interpolation.ppm"
+            elif "optimized" in exe_path or "filter" in exe_path:   
+                expected_out = "out_optimized.ppm"
 
             if run_idx == 0: 
                 if os.path.exists(expected_out):
