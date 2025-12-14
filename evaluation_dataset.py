@@ -28,7 +28,7 @@ qualities = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 decoders = {
     "OpenCV (Standard)": "INTERNAL_OPENCV",
     "Original": "./jpeg_decoder",
-    "Add Interpolation": "./jpeg_decoder_interpolation",
+    "Add Interpolation": "./jpeg_decoder_bilinear",
     "Optimized": "./jpeg_decoder_optimized"
 }
 
@@ -91,10 +91,10 @@ def run_dataset_benchmark(dataset_dir):
                 else:
                     if os.path.exists(exe_path):
                         expected_out = "out.ppm" 
-                        if "interpolation" in exe_path: 
+                        if "bilinear" in exe_path: 
                             expected_out = "out_interpolation.ppm"
                         elif "optimized" in exe_path or "filter" in exe_path:   
-                            expected_out = "out_filter.ppm"
+                            expected_out = "out_optimized.ppm"
                         
                         if os.path.exists(expected_out):
                             os.remove(expected_out)
