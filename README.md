@@ -23,7 +23,7 @@ conda activate jpeg
 ```bash
 pip install -r requirements.txt
 ```
-1. If you are using VSCode, compile the three c++ code.
+3. If you are using VSCode, compile the three c++ code.
 ```bash
 g++ -O3 ./jpeg_decoder.cpp -o ./jpeg_decoder
 ```
