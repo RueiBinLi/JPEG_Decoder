@@ -21,16 +21,20 @@ Memory: 16GB
 ```
 
 ## Installation
-1. Install conda environment
+1. Git Clone
+```bash
+git clone https://github.com/RueiBinLi/JPEG_Decoder.git
+```
+2. Install conda environment
 ```bash
 conda create -n jpeg python=3.13.5 -y
 conda activate jpeg
 ```
-2. Install the required toolkit.
+3. Install the required toolkit.
 ```bash
 pip install -r requirements.txt
 ```
-3. If you are using VSCode, compile the three c++ code.
+4. If you are using VSCode, compile the three c++ code.
 ```bash
 g++ -O3 ./jpeg_decoder.cpp -o ./jpeg_decoder
 ```
