@@ -1,11 +1,29 @@
 # JPEG_Decoder
 
+## Requirements
+```bash
+python==3.13.5
+```
+```bash
+opencv-python
+numpy
+scikit-image
+matplotlib
+torch
+torchmetrics
+```
+
 ## Installation
-1. Install the required toolkit.
+1. Install conda environment
+```bash
+conda craete -n jpeg python=3.13.5 -y
+conda activate jpeg
+```
+2. Install the required toolkit.
 ```bash
 pip install -r requirements.txt
 ```
-2. If you are using VSCode, compile the three c++ code.
+1. If you are using VSCode, compile the three c++ code.
 ```bash
 g++ -O3 ./jpeg_decoder.cpp -o ./jpeg_decoder
 ```
@@ -14,6 +32,20 @@ g++ -O3 ./jpeg_decoder_bilinear.cpp -o ./jpeg_decoder_bilinear
 ```
 ```bash
 g++ -O3 ./jpeg_decoder_optimized.cpp -o ./jpeg_decoder_optimized
+```
+
+## Execution
+1. JPEG Decoder Original Version
+```bash
+./jpeg_decoder lena.jpg
+```
+2. JPEG Decoder Bilinear Interpolation Version
+```bash
+./jpeg_decoder_bilinear lena.jpg
+```
+3. JPEG Decoder Optimized Version
+```bash
+./jpeg_decoder_optimized lena.jpg
 ```
 
 ## Evaluation
